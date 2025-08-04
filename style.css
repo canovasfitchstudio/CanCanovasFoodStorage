@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+form input, form button {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+form input {
+    flex: 1;
+}
+
+form button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#stockList {
+    list-style: none;
+    padding: 0;
+}
+
+#stockList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#stockList li:last-child {
+    border-bottom: none;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-quantity-controls button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    background-color: #f0ad4e;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.delete-button {
+    background-color: #d9534f;
+}
