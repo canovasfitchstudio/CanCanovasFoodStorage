@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Rastreador de Stock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mi Rastreador de Stock de Alimentos</h1>
+
+        <form id="addItemForm">
+            <input type="text" id="itemName" placeholder="Nombre del Alimento" required>
+            <input type="number" id="itemQuantity" placeholder="Cantidad" value="1" min="1" required>
+            <input type="date" id="itemDueDate" required>
+            <button type="submit">Añadir Producto</button>
+        </form>
+
+        <ul id="stockList">
+            </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
