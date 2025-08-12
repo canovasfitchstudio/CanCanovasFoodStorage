@@ -4,11 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let stockItems = JSON.parse(localStorage.getItem('stockItems')) || [];
 
-    // Función para renderizar la lista de stock
     function renderStockList() {
-        stockList.innerHTML = ''; // Limpiar la lista antes de volver a renderizar
+        stockList.innerHTML = '';
         
-        // Ordenar los productos por fecha de vencimiento
         stockItems.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
 
         if (stockItems.length === 0) {
@@ -18,10 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         stockItems.forEach((item, index) => {
             const listItem = document.createElement('li');
             
-            // Revisa si la fecha de vencimiento ya pasó
             const isDue = new Date(item.dueDate) < new Date();
             if (isDue) {
-                listItem.style.backgroundColor = '#f2dede'; // Rojo claro para items vencidos
+                listItem.style.backgroundColor = '#f2dede';
             }
 
             listItem.innerHTML = `
@@ -41,12 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         saveStockItems();
     }
 
-    // Función para guardar los productos en el local storage
     function saveStockItems() {
         localStorage.setItem('stockItems', JSON.stringify(stockItems));
     }
 
-    // Manejar el envío del formulario para añadir un nuevo producto
     addItemForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const itemName = document.getElementById('itemName').value;
@@ -56,10 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const existingItemIndex = stockItems.findIndex(item => item.name.toLowerCase() === itemName.toLowerCase());
         
         if (existingItemIndex > -1) {
-            // Si el producto ya existe, actualiza la cantidad
-            stockItems[existingItemIndex].quantity += itemQuantity;
+            const existingItem = stockItems[existingItemIndex];
+            existingItem.quantity += itemQuantity;
+            
+            // Lógica para la fecha de vencimiento más próxima
+            const newItemDate = new Date(itemDueDate);
+            const existingItemDate = new Date(existingItem.dueDate);
+            if (newItemDate < existingItemDate) {
+                existingItem.dueDate = itemDueDate;
+            }
         } else {
-            // Si no existe, añade un nuevo producto
             const newItem = {
                 name: itemName,
                 quantity: itemQuantity,
@@ -72,11 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderStockList();
     });
 
-    // Manejar los clics para añadir uno, quitar uno o eliminar un producto
     stockList.addEventListener('click', (e) => {
         const index = e.target.dataset.index;
 
-        if (!index) return; // Asegurarse de que se hizo clic en un botón
+        if (!index) return;
 
         if (e.target.classList.contains('add-one-btn')) {
             stockItems[index].quantity++;
@@ -84,15 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (stockItems[index].quantity > 1) {
                 stockItems[index].quantity--;
             } else {
-                stockItems.splice(index, 1); // Elimina el producto si la cantidad es 1 y se quita uno más
+                stockItems.splice(index, 1);
             }
         } else if (e.target.classList.contains('delete-button')) {
-            stockItems.splice(index, 1); // Elimina el producto por completo
+            stockItems.splice(index, 1);
         }
 
         renderStockList();
     });
 
-    // Renderizar la lista al cargar la página
     renderStockList();
 });
