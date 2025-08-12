@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="item-details">
                     <strong>${item.name}</strong> - Cantidad: ${item.quantity}
                     <br>
-                    Fecha de Vencimiento: ${item.dueDate}
+                    Caduca el: ${item.dueDate}
                 </div>
                 <div class="item-quantity-controls">
                     <button class="add-one-btn" data-index="${index}">+1</button>
@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const existingItem = stockItems[existingItemIndex];
             existingItem.quantity += itemQuantity;
             
-            // Lógica para la fecha de vencimiento más próxima
             const newItemDate = new Date(itemDueDate);
             const existingItemDate = new Date(existingItem.dueDate);
             if (newItemDate < existingItemDate) {
